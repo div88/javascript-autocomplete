@@ -1,0 +1,76 @@
+<!--
+*Total time allocated is **2 hrs.*
+
+*Write a simple drop down component which can list the values like usa, uk,
+japan, china etc. It should auto complete when "u" is typed.*
+
+*It should be similar to one found here: *
+*https://jqueryui.com/autocomplete/* 
+
+*Do **not **use jquery or any other framework. *
+
+*Should work in the latest chrome browser. Coding style will be counted.*
+-->
+<html>
+  <head>
+    <style type="text/css">
+      #list{
+        border: 1px solid #B2B2B2;
+        font-size: 21px;
+        left: 70px;
+        position: absolute;
+        width: 153px;
+        color: #B2B2B2;
+      }
+      
+      #countryList{
+        width: 155px;
+      }
+    </style>
+    
+    <script type="text/javascript">
+      var countryArray = ["usa","uk","japan","china"];
+      var newCountryList = [];
+      var countrySelect = {
+		init:function(){
+          document.getElementById("countryList").value = "";
+        },
+        match:function(){
+          var enteredVal = document.getElementById("countryList").value;
+          var valLength = enteredVal.length;
+          
+          var arrayLength = countryArray.length;
+          var newCountryList = [];
+          for (var i = 0; i < arrayLength; i++) {
+              loc =  countryArray[i].indexOf(enteredVal);
+              if (loc != -1) {
+                newCountryList.push(countryArray[i]);
+              }
+              
+          }
+          console.log(newCountryList);
+          var node;
+          document.getElementById("list").innerHTML = "";
+          if (newCountryList.length == 1) {
+            var coun = newCountryList[0];
+            document.getElementById("countryList").value = coun;
+          }
+          
+          for (var i = 0; i < newCountryList.length; i++) {
+              var br = document.createElement("br");
+              node = document.createTextNode(newCountryList[i]);
+              document.getElementById("list").appendChild(node);
+              document.getElementById("list").appendChild(br);  
+          }
+          
+        }
+	  }
+    </script>
+  </head>
+  
+  <body onload="countrySelect.init();">
+    <label>Country: </label>
+    <input id="countryList" onkeyup="countrySelect.match();"/>
+    <div id="list"></div>
+  </body>
+</html>
